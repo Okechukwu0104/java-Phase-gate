@@ -9,7 +9,6 @@ public class StringReverse{
 
 	String input = userInput.nextLine();
 
-
 	 String [] words = input.split(" ");
 	int total = words.length;
 
