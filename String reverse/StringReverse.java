@@ -30,7 +30,9 @@ public class StringReverse{
             reverseWords[count] = words[total - 1 - count];
         
 	}
-	 System.out.println(Arrays.toString(reverseWords));
+	 for(int count = 0; count < total; count++){
+		System.out.print(reverseWords[count] + " ");
+		}
 
 	
 	
