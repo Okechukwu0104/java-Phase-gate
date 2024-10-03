@@ -26,9 +26,12 @@ public class StringReverse{
 	String [] reverseWords = new String [total];
 	
 	for(int count = 0; count < reverseWords.length; count++){
-	  String result = Arrays.append(reverseWords[count -1 -total]);
-
+	
+            reverseWords[count] = words[total - 1 - count];
+        
 	}
+	 System.out.println(Arrays.toString(reverseWords));
+
 	
 	
 
@@ -36,3 +39,20 @@ public class StringReverse{
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
