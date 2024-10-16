@@ -6,7 +6,7 @@ import java.util.*;
 public class ArrayProduct{
 
 	public static void main(String args[]){
-	int [] set = {3,4,1,9,6};
+	int [] set = {-9,4,1,2,144};
 
 	int [] result = largestProduct(set);
 	
@@ -25,11 +25,11 @@ public class ArrayProduct{
 		int second = 0;
 
 	    for(int count = 0; count < set.length; count++){
-		if(set[count] > largest){
+		if(Math.abs(set[count]) > largest){
 			second = largest;
-			 largest = set[count];
+			 largest = Math.abs(set[count]);
 			
-		}else if(second < set[count] && set[count] < largest)second = set[count];
+		}else if(second < Math.abs(set[count]) && Math.abs(set[count]) < largest)second = Math.abs(set[count]);
 	    }
 		largestProductNumbers[0] = largest;
 		largestProductNumbers[1] = second;
