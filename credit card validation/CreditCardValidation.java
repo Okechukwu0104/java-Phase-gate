@@ -2,7 +2,7 @@ import java.util.*;
 public class CreditCardValidation{
 
 	public static void main(String args[]){
-		
+		try{
 	        Scanner userInput = new Scanner(System.in);
 		System.out.println("Hello, Kindly enter card details to verify: ");
 		String creditCardNo = userInput.nextLine();
@@ -22,6 +22,10 @@ public class CreditCardValidation{
 	
 		System.out.printf(value,cardType,creditCardNo,length,validity);
 	
+	}catch(Exception e){
+		System.out.print("Input not correct");
+		}
+
 	}
 
 
