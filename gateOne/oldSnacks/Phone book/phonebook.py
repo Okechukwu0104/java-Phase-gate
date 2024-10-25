@@ -1,4 +1,7 @@
-def add_contact(list_of_first_names,list_of_last_names,list_of_phone_numbers):
+contact_details = []
+
+
+def add_contact(contact_details):
 
 	phone_number =""
 	while len(phone_number) != 11:
@@ -9,13 +12,36 @@ def add_contact(list_of_first_names,list_of_last_names,list_of_phone_numbers):
 		if len(phone_number) != 11:
 			print("Invalid Number")
 			print(" ")
+		holder = first_name, last_name , phone_number
+	contact_details.append(holder)
 
-	list_of_first_names.append(first_name)
-	list_of_last_names.append(last_name)
-	list_of_phone_numbers.append(phone_number)
+	print("contact saved successfully...")
 		
+	return contact_details
 
-	print(list_of_first_names," ",list_of_last_names," ",list_of_phone_numbers)
+
+
+
+
+def remove_contact(contact_details):
+	try:
+
+		count = 1
+		for contact in contact_details:
+			print(count,". ",contact)
+			count += 1
+
+		index = int(input(f'input a number you want to delete(1 - {count-1} ) : '))
+		
+		contact_details.pop(index - 1)
+
+		return contact_details
+	
+	except:
+		print("wrong input")
+	
+	
+
 
 
 
@@ -24,14 +50,10 @@ def add_contact(list_of_first_names,list_of_last_names,list_of_phone_numbers):
 
 
 def phone_book():
-	list_of_first_names = []
-	list_of_last_names = []
-	list_of_phone_numbers = []
-
-
+	
 	print('''
 
-	Afeez Phonebook Menu
+	** Afeez Phonebook ** 
 
 	1.> Add contact
 	2.> Remove contact
@@ -39,7 +61,8 @@ def phone_book():
 	4.> Find contact by first name
 	5.> Find contact by last name
 	6.> Edit contact
-
+	
+	-1.> display contacts
 	0.> Exit
 
 	''')
@@ -52,11 +75,17 @@ def phone_book():
 
 	match choice:
 		case "1":
-			add_contact(list_of_first_names,list_of_last_names,list_of_phone_numbers)
+			add_contact(contact_details)
 			phone_book()
 
 		case "2":
-			print(list_of_first_names," ",list_of_last_names," ",list_of_phone_numbers)
+			remove_contact(contact_details)
+			phone_book()
+
+
+		case "-1":
+			print(contact_details)
+			phone_book()
 
 		case _:
 			print("wrong choice")
