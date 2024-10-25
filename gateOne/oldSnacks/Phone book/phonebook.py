@@ -12,8 +12,8 @@ def add_contact(contact_details):
 		if len(phone_number) != 11:
 			print("Invalid Number")
 			print(" ")
-		holder = first_name, last_name , phone_number
-	contact_details.append(holder)
+		holder = {'first_name': first_name,'last_name': last_name,'phone_number': phone_number}
+		contact_details.append(holder)
 
 	print("contact saved successfully...")
 		
@@ -27,26 +27,41 @@ def remove_contact(contact_details):
 	try:
 
 		count = 1
-		for contact in contact_details:
-			print(count,". ",contact)
-			count += 1
+		if len(contact_details) >0:
 
-		index = int(input(f'input a number you want to delete(1 - {count-1} ) : '))
-		
-		contact_details.pop(index - 1)
+			for contact in contact_details:
+				print(count,". ",contact)
+				count += 1
 
-		return contact_details
-	
+			index = int(input(f'input a number you want to delete(1 - {count-1} ) : '))
+
+			if index < 0 or index > count-1:
+				print(f'%n**you dont have a {index}th contact')
+				
+			contact_details.pop(index - 1)
+
+			return contact_details
+		else:
+			print("\n**You have no contacts")
+			phone_book()
 	except:
 		print("wrong input")
 	
 	
 
 
+def find_number(contact_details):
+	try:
+	search = input("Input a phone number you want to find: ")
+	for contact in contact_details:
+		if search == contact['phone_number']:
+			print(f"Contact found: {contact['first_name']} {contact['last_name']} - {contact['phone_number']}")
+			break
+		else:
+			print("Number not found")
 
-
-
-
+	except:
+		print("Incalid input ")
 
 
 def phone_book():
@@ -82,9 +97,26 @@ def phone_book():
 			remove_contact(contact_details)
 			phone_book()
 
+		case "3":
+			find_number(contact_details)
+			phone_book()
+
+		case "4":
+			find_first_name(contact_details)
+			phone_book()
+
+		case "5":
+			find_last_name(contact_details)
+			phone_book()
+
+
+		case "6":
+			edit_contact(contact_details)
+			phone_book()
+
 
 		case "-1":
-			print(contact_details)
+			print(f"{contact['first_name']} {contact['last_name']} - {contact['phone_number']}")
 			phone_book()
 
 		case _:
