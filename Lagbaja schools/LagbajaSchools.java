@@ -207,87 +207,80 @@ public class LagbajaSchools{
 
 
 
-  public static void subjectSummary(int[][] record,int students, int subjects, int[] highestScores,int[] lowestScores, int[] total,float[] average, int[] passCount, int[] failCount, int highestOfHighest, int lowestOfLowest,int hIndex, int lIndex, int bestGraduating,int worstGraduating){
-		int value = 0;
-		int value2 = 0;
-	for(int outCount = 0; outCount < students; outCount++){
-		int counter =1;
-		int counter2 =1;
-		value = 0;
-		value2 = 0;
-		for(int count = 0; count < subjects; count++){
+  public static void subjectSummary(int[][] record, int students, int subjects, int[] highestScores, int[] lowestScores, int[] total, float[] average, int[] passCount, int[] failCount, int highestOfHighest, int lowestOfLowest, int hIndex, int lIndex, int bestGraduating, int worstGraduating) {
+    int value = 0;
+    int value2 = 0;
+    for (int outCount = 0; outCount < students; outCount++) {
+        int counter = 1;
+        int counter2 = 1;
+        value = 0;
+        value2 = 0;
+        for (int count = 0; count < subjects; count++) {
+            if (highestScores[count] == record[outCount][count]) {
+                value = counter;
+            } else {
+                counter++;
+            }
+            if (lowestScores[count] == record[outCount][count]) {
+                value2 = counter2;
+            } else {
+                counter2++;
+            }
+        }
+    }
 
-		if(highestScores[count] == record[outCount][count]) value = counter;
-		else counter++;
+    for (int count = 0; count < subjects; count++) {
+        String summary = """
 
-		
-		if(lowestScores[count] == record[outCount][count]) value2 = counter2;
-		else counter2++;
-		}
-	
+            Subject %d
+
+            Highest scoring student: Student %d with a score of %d
+            Lowest scoring student: Student %d with a score of %d
+            Total score: %d
+            Average score: %.2f
+            Number of passes: %d
+            Number of fails: %d
+
+            """;
+        System.out.printf(summary, (count + 1), value + 1, highestScores[count], value2, lowestScores[count], total[count], average[count], passCount[count], failCount[count]);
+    }
+int classTotalScore = 0;
+int AverageScore = 0;
+	for(int count = 0; count < students; count++){
+   	  classTotalScore += total[count];
+   	  AverageScore += average[count];
+
 	}
 
-	for(int count = 0; count < subjects; count++){
-	String Summary = ("""
+	float classAverageScore = (float)AverageScore / students;
 
+    int[] fcSorted = position(failCount, students);
+    	int[] pcSorted = position(passCount, students);
+    	int failed = fcSorted[0];
+    int passed = pcSorted[0];
 
-			subject %d
-			Highest scoring student: Student %d with a score of %d
-			Lowest scoring student: Student %d with a score of %d
-			Total score: %d
-			Average score: %.2f
-			Number of passes: %d
-			Number of fails: %d
+    String classSummary = """
 
-			""");
-	
-		System.out.printf(Summary, (count+1), value+1, highestScores[count], value2, lowestScores[count], total[count], average[count], passCount[count], failCount[count] );
+        Hardest Subject: Subject %d with %d failures
+        Easiest Subject: Subject %d with %d passes
 
-		
-	}
-		int classTotalScore = 0;
-		int classAverageScore = 0;
-	for(int count1 = 0; count1 < total.length; count1++){
-		classTotalScore += total[count1];
-		classAverageScore += average[count1];
+        Highest Score: Student %d in Subject %d scoring %d
+        Lowest Score: Student %d in Subject %d scoring %d
 
-	}
-System.out.print("Failcount "+Arrays.toString(failCount));
-	int[] fcSorted = position(failCount,students);
-	int[] pcSorted = position(passCount,students);
-		
-	int failed = fcSorted[0];
-	int passed = pcSorted[0];
+        CLASS SUMMARY
 
+       	Best Graduating Student: Student %d scoring %d
+        Worst Performing Student: Student %d scoring %d
+        Class Total Score: %d
+        Class Average Score: %.2f
 
-	String classSummary = ("""
+        """;
 
-	Hardest Subject: Subject %d with %d failures
-	Easiest Subject: Subject %d with %d passes
+    System.out.printf(classSummary,(lIndex + 1), failed, (hIndex + 1), passed, bestGraduating + 1, hIndex + 1, highestOfHighest, worstGraduating + 1, lIndex + 1, lowestOfLowest, bestGraduating + 1, total[bestGraduating], worstGraduating + 1, total[worstGraduating], classTotalScore, classAverageScore);
 
-	
-	Highest Score: Student %d in Subject %d scoring %d
-	
-	Lowest Score: Student %d in Subject %d scoring %d
-
-	CLASS SUMMARY
-
-	Best Graduating Student: Student %d scoring %d
-	Worst Performing Student: Student %d scoring %d
-
-	""");
-
-	System.out.printf(classSummary,(lIndex+1), failed,(hIndex+1),passed,bestGraduating+1,total[value],
-highestOfHighest,worstGraduating+1,total[value],
-lowestOfLowest,bestGraduating+1, total[bestGraduating],worstGraduating+1, total[worstGraduating]
-);
-
-
-		System.out.println("Class Total Score: "+classTotalScore);
-		System.out.println("Class Total Average: "+ classAverageScore);
-
-  }
-
+    System.out.println("Class Total Score: " + classTotalScore);
+    System.out.println("Class Average Score: " + classAverageScore);
+}
 
 
 }
