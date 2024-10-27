@@ -1,21 +1,3 @@
-/*
-
-
-
-yes
-What did the user buy?
-Rice
-How many pieces?
-2
-Add more items?
-yes
-What did the user buy?
-Cashew nuts.
-What is your Name 
-Chukwuma Adekunle Ciroma 
-How much discount will he get 
-8%
-*/
 
 import java.util.*;
 import java.time.LocalDateTime;
@@ -52,6 +34,7 @@ public class SemicolonStores{
 			List<Float> costPerUnitRecord = new ArrayList<>();
 			 List<Float> totalRecord = new ArrayList<>();	
 		
+			boolean done = false;
 		while(true){
 			try{
 
@@ -97,12 +80,21 @@ public class SemicolonStores{
 			float input3 = userInput.nextFloat();
 		
 			float discount = (float) totalSum * (input3 / 100);
+			float billTotal = totalSum - discount;
 
-			displays(name,cashiersName,userInput,itemsRecord,quantityRecord,totalRecord,totalSum,discount,input3,costPerUnitRecord);
+	
 
-			System.out.print("How much did the Customer give to you?: ");
-			
-			
+		String firstDisplay = displays(name,cashiersName,userInput,itemsRecord,quantityRecord,totalRecord,totalSum,discount,input3,costPerUnitRecord,billTotal);
+			float payment = decision2(userInput);
+			float balance = payment - billTotal;
+			done = true;
+
+			if(done){
+	finalDisplay(name,cashiersName,userInput,itemsRecord,quantityRecord,totalRecord,totalSum,discount,input3,costPerUnitRecord,payment, balance, firstDisplay );
+
+		
+			return;
+			}
 
 			}else {System.out.println("Pls input yes or no");decision1(userInput);  }
 
@@ -123,14 +115,30 @@ public class SemicolonStores{
 			
 		}
 
+		public static float decision2(Scanner userInput){
+
+			System.out.print("How much did the Customer give to you?: ");
+			float payment = userInput.nextFloat();
+			return payment;
+			
+		}
 
 
+		public static String timeDisplay(){
 
-	public static void displays(String name,String cashiersName,Scanner userInput,List<String> itemsRecord,List<Integer> quantityRecord, List<Float> totalRecord, float totalSum, float discount, float input3, List<Float> costPerUnitRecord){
 
 		LocalDateTime currentTime = LocalDateTime.now();
 		DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MMM-YY h:mm:ss a");
 		String timeFormat = currentTime.format(pattern);
+		return timeFormat;
+			
+		}
+
+
+
+	public static String displays(String name,String cashiersName,Scanner userInput,List<String> itemsRecord,List<Integer> quantityRecord, List<Float> totalRecord, float totalSum, float discount, float input3, List<Float> costPerUnitRecord,float billTotal){
+
+	timeDisplay();
 		
 	String display1 = ("""
 
@@ -149,21 +157,22 @@ public class SemicolonStores{
 	-------------------------------------------------------------------	
 
 	""");
-	System.out.printf(display1,timeFormat,cashiersName,name );
+	System.out.printf(display1,timeDisplay(),cashiersName,name );
 
 
 	theLoop(itemsRecord, quantityRecord, totalRecord, costPerUnitRecord);
 
 	float vat = (float) 0.075 * totalSum;
-	float billTotal = totalSum - discount;
+	float realTotal = vat + billTotal;
+	
 
 	String display2 = ("""
 	-------------------------------------------------------------------
-					Sub Total: 	 %.2f NGN
-					Discount:	 %.1f NGN
-					VAT @ %.2f :	 %.2f NGN
+					Sub Total: 	 %.2f 
+					Discount:	 %.1f 
+					VAT @ %.2f :	 %.2f 
 	===================================================================
-					Bill Total:	 %.2f NGN
+					Bill Total:	 %.2f 
 	===================================================================
 
 	THIS IS NOT AN ACTUAL RECEIPT. KINDLY PAY %.2f NGN.
@@ -171,8 +180,9 @@ public class SemicolonStores{
 	===================================================================
 		""");
 
-	System.out.printf(display2,totalSum,discount,input3,vat,billTotal,billTotal);
+	System.out.printf(display2,totalSum,discount,input3,vat,realTotal,realTotal);
 
+	return display1;
 
 
 	}
@@ -182,13 +192,54 @@ public class SemicolonStores{
 	public static void theLoop(List<String> itemsRecord,List<Integer> quantityRecord, List<Float> totalRecord, List<Float>costPerUnitRecord){
 		
 		for(int count = 0; count < totalRecord.size(); count++){
-		System.out.print("\t\t\t"+itemsRecord.get(count));
-		System.out.print("\t\t\t"+quantityRecord.get(count));
-		System.out.print("\t\t\t"+costPerUnitRecord.get(count));
-		System.out.print("\t\t\t"+totalRecord.get(count));
+		System.out.printf("       %-10s     ",itemsRecord.get(count));
+		System.out.printf("%-10d",quantityRecord.get(count));
+		System.out.printf("%-10.2f",costPerUnitRecord.get(count));
+		System.out.printf("%-10.2f",totalRecord.get(count));
 		System.out.println();
 		}
 
+
+	}
+
+
+
+	public static void finalDisplay(String name,String cashiersName,Scanner userInput,List<String> itemsRecord,List<Integer> quantityRecord, List<Float> totalRecord, float totalSum, float discount, float input3, List<Float> costPerUnitRecord,float payment,float balance , String firstDisplay){
+
+	timeDisplay();
+		
+
+	System.out.print(firstDisplay);
+
+
+	theLoop(itemsRecord, quantityRecord, totalRecord, costPerUnitRecord);
+
+	float vat = (float) 0.075 * totalSum;
+	float billTotal = totalSum - discount;
+	float realTotal = vat + billTotal;
+	float change = payment - realTotal ;
+
+	String display2 = ("""
+	-------------------------------------------------------------------
+
+					Sub Total: 	 %.2f 
+					Discount:	 %.1f 
+					VAT @ %.2f :	 %.2f 
+	===================================================================
+
+					Bill Total:	 %.2f 
+					Amount Paid:	 %.2f 
+					Balance: 	 %.2f 
+	===================================================================
+
+			  THANK YOU FOR YOUR PATRONAGE
+
+	===================================================================
+		""");
+
+	System.out.printf(display2,totalSum,discount,input3,vat,realTotal,payment,change);
+
+	
 
 	}
 
