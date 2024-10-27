@@ -168,14 +168,15 @@ public class SemicolonStores{
 
 	String display2 = ("""
 	-------------------------------------------------------------------
-					Sub Total: 	 %.2f 
-					Discount:	 %.1f 
-					VAT @ %.2f :	 %.2f 
+
+						Sub Total: 	 %.2f 
+						Discount:	 %.1f 
+						VAT @ %.2f :	 %.2f 
 	===================================================================
-					Bill Total:	 %.2f 
+						Bill Total:	 %.2f 
 	===================================================================
 
-	THIS IS NOT AN ACTUAL RECEIPT. KINDLY PAY %.2f NGN.
+		THIS IS NOT AN ACTUAL RECEIPT. KINDLY PAY %.2f NGN.
 
 	===================================================================
 		""");
@@ -192,10 +193,10 @@ public class SemicolonStores{
 	public static void theLoop(List<String> itemsRecord,List<Integer> quantityRecord, List<Float> totalRecord, List<Float>costPerUnitRecord){
 		
 		for(int count = 0; count < totalRecord.size(); count++){
-		System.out.printf("       %-10s     ",itemsRecord.get(count));
-		System.out.printf("%-10d",quantityRecord.get(count));
-		System.out.printf("%-10.2f",costPerUnitRecord.get(count));
-		System.out.printf("%-10.2f",totalRecord.get(count));
+		System.out.printf("        %-10s     ",itemsRecord.get(count));
+		System.out.printf("  %-10d",quantityRecord.get(count));
+		System.out.printf("     %-10.2f",costPerUnitRecord.get(count));
+		System.out.printf("      %-10.2f",totalRecord.get(count));
 		System.out.println();
 		}
 
@@ -222,14 +223,14 @@ public class SemicolonStores{
 	String display2 = ("""
 	-------------------------------------------------------------------
 
-					Sub Total: 	 %.2f 
-					Discount:	 %.1f 
-					VAT @ %.2f :	 %.2f 
+						Sub Total: 	 %.2f 
+						Discount:	 %.1f 
+						VAT @ %.2f :	 %.2f 
 	===================================================================
 
-					Bill Total:	 %.2f 
-					Amount Paid:	 %.2f 
-					Balance: 	 %.2f 
+						Bill Total:	 %.2f 
+						Amount Paid:	 %.2f 
+						Balance: 	 %.2f 
 	===================================================================
 
 			  THANK YOU FOR YOUR PATRONAGE
@@ -241,7 +242,7 @@ public class SemicolonStores{
 
 	
 
-	}
+	}	
 
 	
 
